@@ -1,5 +1,5 @@
 # KataPotter
-![difficulty][difficulty]
+![difficulty](https://img.shields.io/badge/Dificultad-Facil-green.svg)
 
 Una kata de algoritmia facil para comenzar con el TDD
 
@@ -13,12 +13,40 @@ Ten en cuenta que si compras, por ejemplo, cuatro libros, de los cuales 3 son t�
 La manía de Potter está barriendo el país y los padres de adolescentes en todas partes hacen cola con cestas de compras rebosantes de libros de Potter. Su misión es escribir una pieza de código para calcular el precio de cualquier canasta de compras concebible, dando un descuento tan grande como sea posible.
 
 ## Libros
-![Book covers][Book_Covers]
+![Book covers](http://www.hogwartsla.com/news/uploads/covers_all.jpg)
 
 ## Cómo empezar
 1. Clonamos el repo y creamos una rama nueva.
 2. Abrimos el proyecto y dentro podremos ver una clase que pueda contener la informacion necesaria para el problema, la carcasa de la clase encargada de calcular el precio total y su test con el caso de prueba mas sencillo. 
-3. Debemos empeza con hacer pasar el test que ya existe, y luego con *[TDD]* desarrolla el algoritmo para resolver el problema.
+3. Debemos empeza con hacer pasar el test que ya existe, y luego con *[TDD]* desarrollar el algoritmo para resolver el problema.
 
-[difficulty]: https://img.shields.io/badge/Dificultad-Facil-green.svg
-[Book_Covers]: http://www.hogwartsla.com/news/uploads/covers_all.jpg
+## Casos de prueba sugeridos
+### Básicos
+- [] => 0
+- [1] => 8
+- [2] => 8
+- [3] => 8
+- [4] => 8
+- [5] => 8
+- [6] => 8
+- [7] => 8
+- [1,1] => 8 * 2
+- [2,2,2] => 8 * 3
+
+### Descuento simple
+- [1, 2] => 8 * 2 * 0.95
+- [1, 2, 3] => 8 * 3 * 0.9
+- [1, 2, 3, 4] => 8 * 4 * 0.8
+- [1, 2, 3, 4, 5] => 8 * 5 * 0.75
+- [1, 2, 3, 4, 5, 6] => 8 * 6 * 0.70
+- [1, 2, 3, 4, 5, 6, 7] => 8 * 7 * 0.65
+
+### Varios descuentos
+- [1, 1, 2] => 8 + (8 * 2 * 0.95)
+- [1, 1, 2, 2] => 2 * (8 * 2 * 0.95)
+- [1, 1, 2, 3, 3, 4] => (8 * 4 * 0.8) + (8 * 2 * 0.95)
+- [1, 2, 2, 3, 4, 5] => 8 + (8 * 5 * 0.75)
+
+### Casos extremos
+- [1, 1, 2, 2, 3, 3, 4, 5] => 2 * (8 * 4 * 0.8)
+- [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5] => 3 * (8 * 5 * 0.75) + 2 * (8 * 4 * 0.8)
