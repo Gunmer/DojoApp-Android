@@ -1,17 +1,22 @@
 package com.gunmer.dojoapp.kataPotter
 
+import java.util.*
+
 class CashRegister {
 
     fun calculatePriceOf(shoppingBasket: Array<Book>): Double {
-        val distinctList = shoppingBasket.distinctBy { it.type }
-        val equalsList = shoppingBasket.filter { !distinctList.contains(it) }
+        var books = shoppingBasket.toMutableList()
+        var totalWithDiscount = 0.0
 
-        val discount = calculateDiscount(distinctList)
+        while (books.isNotEmpty()) {
+            val distinctList = books.distinctBy { it.type }
+            books = books.filter { !distinctList.contains(it) }.toMutableList()
+            val discount = calculateDiscount(distinctList)
+            totalWithDiscount += distinctList.sumByDouble { applyDiscount(it, discount) }
+        }
 
-        val totalWithDiscount = distinctList.sumByDouble { applyDiscount(it, discount) }
-        val totalWithoutDiscount = equalsList.sumByDouble { it.price }
 
-        return  totalWithDiscount + totalWithoutDiscount
+        return  String.format(Locale.ENGLISH,"%.2f", totalWithDiscount).toDouble()
     }
 
     private fun calculateDiscount(distinctList: List<Book>): Double {

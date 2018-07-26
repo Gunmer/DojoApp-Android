@@ -134,22 +134,47 @@ class CashRegisterTest {
     }
 
     @Test
-    fun `should be apply 5% of discount when basket has 7 distinct books`() {
+    fun `should be apply two diferents discount when basket has two groups`() {
         val shoppingBasket = arrayOf(
+                Book(BookType.PHILOSOPHERS_STONE),
+                Book(BookType.PHILOSOPHERS_STONE),
+                Book(BookType.CHAMBER_OF_SECRETS),
                 Book(BookType.PRISONER_OF_AZKABAN),
-                Book(BookType.ORDER_OF_THE_PHOENIX),
                 Book(BookType.PRISONER_OF_AZKABAN),
-                Book(BookType.ORDER_OF_THE_PHOENIX),
-                Book(BookType.PRISONER_OF_AZKABAN),
-                Book(BookType.ORDER_OF_THE_PHOENIX),
-                Book(BookType.PRISONER_OF_AZKABAN),
-                Book(BookType.ORDER_OF_THE_PHOENIX)
+                Book(BookType.GOBLET_OF_FIRE)
         )
 
         val price = cashRegister.calculatePriceOf(shoppingBasket)
 
-        assertThat(price, `is`(12.2))
+        assertThat(price, `is`(40.8))
     }
 
+    @Test
+    fun `should be apply three diferents discount when basket has three groups`() {
+        val shoppingBasket = arrayOf(
+                Book(BookType.PHILOSOPHERS_STONE),
+                Book(BookType.CHAMBER_OF_SECRETS),
+                Book(BookType.PHILOSOPHERS_STONE),
+                Book(BookType.CHAMBER_OF_SECRETS),
+                Book(BookType.PRISONER_OF_AZKABAN),
+                Book(BookType.PHILOSOPHERS_STONE),
+                Book(BookType.CHAMBER_OF_SECRETS),
+                Book(BookType.PRISONER_OF_AZKABAN),
+                Book(BookType.GOBLET_OF_FIRE)
+        )
+
+        val price = cashRegister.calculatePriceOf(shoppingBasket)
+
+        assertThat(price, `is`(62.4))
+    }
+
+    @Test
+    fun `should set 0 discount with zero books in the basket`() {
+        val shoppingBasket = emptyArray<Book>()
+        val price = cashRegister.calculatePriceOf(shoppingBasket)
+
+        assertThat(price, `is`(0.0))
+
+    }
 
 }
